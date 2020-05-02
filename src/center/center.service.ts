@@ -8,8 +8,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 export class CenterService {
   constructor(@InjectRepository(CenterRepo) private repo: CenterRepo) {}
 
-  async getCenters(id?: string, q?: string): Promise<Center | Center[]> {
-    return this.repo.getCenters(id, q);
+  async get(id?: string, q?: string): Promise<Center | Center[]> {
+    return this.repo.get(id, q);
   }
 
   async createCenter(dto: CreateCenterDTO): Promise<Center> {

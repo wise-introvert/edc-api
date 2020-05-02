@@ -13,7 +13,7 @@ export default class CenterRepo extends Repository<Center> {
    * @param       q { optional, String } search query
    * @description get centers either using id, search query or get all center
    */
-  async getCenters(id?: string, q?: string): Promise<Center[] | Center> {
+  async get(id?: string, q?: string): Promise<Center[] | Center> {
     if (id) {
       const center: Center = await Center.findOne(id);
       if (!center) {

@@ -7,26 +7,29 @@ import {
   Query,
   Delete,
   Param,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { CenterService } from './center.service';
 import Center from './center.entity';
 import { CreateCenterDTO, UpdateCenterDTO } from './dto';
 
 @Controller('center')
+@UsePipes(ValidationPipe)
 export class CenterController {
   constructor(private service: CenterService) {}
 
   @Get('/:id')
   async getCenter(@Param('id') id: string): Promise<Center | Center[]> {
-    return this.service.getCenters(id);
+    return this.service.get(id);
   }
 
   @Get()
-  async getCenters(
+  async get(
     @Query('id') id: string,
     @Query('q') q: string,
   ): Promise<Center | Center[]> {
-    return this.service.getCenters(id, q);
+    return this.service.get(id, q);
   }
 
   @Post()

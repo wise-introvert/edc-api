@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common';
 import * as path from 'path';
 
 import { CenterModule } from './center/center.module';
+import { SubscriberModule } from './subscriber/subscriber.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { CenterModule } from './center/center.module';
       ],
     }),
     CenterModule,
+    SubscriberModule,
   ],
 })
 export class AppModule {}
