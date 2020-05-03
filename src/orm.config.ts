@@ -12,7 +12,7 @@ const development: any = {
   password: '',
   database: 'edc',
   synchronize: true,
-  logging: false,
+  logging: true,
   entities: [
     path.join(__dirname, '../dist/**/**.entity{.ts,.js}'),
     path.join(__dirname, './**/**.entity{.ts,.js}'),
@@ -40,7 +40,7 @@ const defaultConfiguration: any = {
   password: '',
   database: 'edc',
   synchronize: true,
-  logging: false,
+  logging: true,
   entities: [
     path.join(__dirname, '../dist/**/**.entity{.ts,.js}'),
     path.join(__dirname, './**/**.entity{.ts,.js}'),

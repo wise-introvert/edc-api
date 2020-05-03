@@ -2,10 +2,11 @@ import { Repository, EntityRepository } from 'typeorm';
 import {
   NotFoundException,
   InternalServerErrorException,
+  BadRequestException,
+  Logger,
 } from '@nestjs/common';
 import Subscriber from './subscriber.entity';
 import { CreateSubscriberDTO, UpdateSubscriberDTO } from './dto';
-import Center from 'src/center/center.entity';
 
 @EntityRepository(Subscriber)
 export default class SubscriberRepo extends Repository<Subscriber> {
@@ -15,6 +16,7 @@ export default class SubscriberRepo extends Repository<Subscriber> {
    * @description get subscribers either using id, search query or get all subscriber
    */
   async get(id?: string, q?: string): Promise<Subscriber | Subscriber[]> {
+    const queryBuilder = Subscriber.createQueryBuilder('subscriber');
     if (id) {
       const subscriber: Subscriber = await Subscriber.findOne(id, {
         relations: ['center'],
@@ -24,7 +26,6 @@ export default class SubscriberRepo extends Repository<Subscriber> {
       }
       return subscriber;
     } else {
-      const queryBuilder = Subscriber.createQueryBuilder('subscriber');
       if (q) {
         const subscribers: Subscriber[] = await queryBuilder
           .leftJoinAndSelect('subscriber.center', 'center')
@@ -33,10 +34,14 @@ export default class SubscriberRepo extends Repository<Subscriber> {
           .orWhere('lastName LIKE :q', { q: `%${q}%` })
           .orWhere('displayId LIKE :q', { q: `%${q}%` })
           .orWhere('centerId LIKE :q', { q: `%${q}%` })
+          .orWhere('fatherName LIKE :q', { q: `%${q}%` })
+          .orWhere('motherName LIKE :q', { q: `%${q}%` })
           .getMany();
         return subscribers;
       } else {
-        const subscribers: Subscriber[] = await Subscriber.find();
+        const subscribers: Subscriber[] = await queryBuilder
+          .leftJoinAndSelect('subscriber.center', 'center')
+          .getMany();
         return subscribers;
       }
     }
