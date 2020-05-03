@@ -10,10 +10,7 @@ import {
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
-import Center from '../center/center.entity';
-
-
-@Entity("membership_types")
+@Entity('membership_types')
 export default class MembershipType extends BaseEntity {
   @PrimaryColumn('uuid')
   id: string;
@@ -32,7 +29,6 @@ export default class MembershipType extends BaseEntity {
 
   @Column()
   updatedBy: string;
-
 
   @BeforeInsert()
   setup() {

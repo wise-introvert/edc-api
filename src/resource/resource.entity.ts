@@ -8,14 +8,13 @@ import {
   BeforeInsert,
   BeforeUpdate,
   OneToOne,
-  JoinColumn
+  JoinColumn,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
 import Center from '../center/center.entity';
 
-
-@Entity("resources")
+@Entity('resources')
 export default class Resource extends BaseEntity {
   @PrimaryColumn('uuid')
   id: string;
@@ -35,12 +34,6 @@ export default class Resource extends BaseEntity {
   @Column()
   toyPieces: number;
 
-  @Column()
-  centerId: string;
-  @OneToOne(type => Center)
-  @JoinColumn({ name: 'centerId' })
-  center: Center;
-
   @CreateDateColumn()
   created: number;
 
@@ -53,6 +46,9 @@ export default class Resource extends BaseEntity {
   @Column()
   updatedBy: string;
 
+  @OneToOne(type => Center)
+  @JoinColumn({ name: 'centerId' })
+  center: Center;
 
   @BeforeInsert()
   setup() {

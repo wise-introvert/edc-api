@@ -1,4 +1,3 @@
-
 import { Repository, EntityRepository } from 'typeorm';
 import MembershipType from './membership_type.entity';
 import {
@@ -14,7 +13,10 @@ export default class MembershipTypeRepo extends Repository<MembershipType> {
    * @param       q { optional, String } search query
    * @description get memberships either using id, search query or get all membershipType
    */
-  async get(id?: string, q?: string): Promise<MembershipType[] | MembershipType> {
+  async get(
+    id?: string,
+    q?: string,
+  ): Promise<MembershipType[] | MembershipType> {
     if (id) {
       const membershipType: MembershipType = await MembershipType.findOne(id);
       if (!membershipType) {
@@ -37,7 +39,9 @@ export default class MembershipTypeRepo extends Repository<MembershipType> {
   }
 
   // create a membershipType
-  async createMembershipType(dto: CreateMembershipTypeDTO): Promise<MembershipType> {
+  async createMembershipType(
+    dto: CreateMembershipTypeDTO,
+  ): Promise<MembershipType> {
     const membershipType: MembershipType = MembershipType.create({
       ...dto,
     });
@@ -46,7 +50,10 @@ export default class MembershipTypeRepo extends Repository<MembershipType> {
   }
 
   // update a membershipType
-  async updateMembershipType(id: string, dto: UpdateMembershipTypeDTO): Promise<void> {
+  async updateMembershipType(
+    id: string,
+    dto: UpdateMembershipTypeDTO,
+  ): Promise<void> {
     const queryBuilder = MembershipType.createQueryBuilder();
     await queryBuilder
       .update()

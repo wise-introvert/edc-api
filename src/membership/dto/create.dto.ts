@@ -1,9 +1,9 @@
 import { IsNotEmpty } from 'class-validator';
-
+import MembershipType from 'src/membership_type/membership_type.entity';
 
 export default class CreateMembershipDTO {
   @IsNotEmpty({ message: 'membershipType field cannot be empty' })
-  membershipTypeId: string;
+  membershipType: MembershipType;
 
   @IsNotEmpty({ message: 'Subscriber field cannot be empty' })
   subscriberId: string;
@@ -13,5 +13,4 @@ export default class CreateMembershipDTO {
 
   @IsNotEmpty({ message: 'Fees field cannot be empty' })
   fees: number;
-
 }

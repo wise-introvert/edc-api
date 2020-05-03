@@ -1,4 +1,5 @@
-import { IsNotEmpty } from "class-validator";
+import { IsNotEmpty } from 'class-validator';
+import Center from 'src/center/center.entity';
 
 export default class UpdateResourceDTO {
   @IsNotEmpty()
@@ -11,7 +12,7 @@ export default class UpdateResourceDTO {
   type?: string;
 
   @IsNotEmpty()
-  centerId?: string;
+  center?: Center;
 
   author?: string;
 

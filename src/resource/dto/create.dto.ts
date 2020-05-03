@@ -1,4 +1,5 @@
 import { IsNotEmpty } from 'class-validator';
+import Center from 'src/center/center.entity';
 
 export default class CreateResourceDTO {
   @IsNotEmpty({ message: 'Name field cannot be empty' })
@@ -10,8 +11,8 @@ export default class CreateResourceDTO {
   @IsNotEmpty({ message: 'Type field cannot be empty' })
   type: string;
 
-  @IsNotEmpty({ message: 'CenterId field cannot be empty' })
-  centerId: string;
+  @IsNotEmpty({ message: 'Center field cannot be empty' })
+  center: Center;
 
   author: string;
 

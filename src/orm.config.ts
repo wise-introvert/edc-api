@@ -6,13 +6,13 @@ env = env || 'dev';
 
 const development: any = {
   type: 'mysql',
-  host: 'localhost',
+  host: 'sql129.main-hosting.eu',
   port: 3306,
-  username: 'root',
-  password: '',
-  database: 'edc',
+  username: 'u309678516_staging',
+  password: 'staging',
+  database: 'u309678516_staging',
   synchronize: true,
-  logging: true,
+  logging: false,
   entities: [
     path.join(__dirname, '../dist/**/**.entity{.ts,.js}'),
     path.join(__dirname, './**/**.entity{.ts,.js}'),
@@ -34,13 +34,13 @@ const production: any = {
 };
 const defaultConfiguration: any = {
   type: 'mysql',
-  host: 'localhost',
+  host: 'sql129.main-hosting.eu',
   port: 3306,
-  username: 'root',
-  password: '',
-  database: 'edc',
+  username: 'u309678516_staging',
+  password: 'staging',
+  database: 'u309678516_staging',
   synchronize: true,
-  logging: true,
+  logging: false,
   entities: [
     path.join(__dirname, '../dist/**/**.entity{.ts,.js}'),
     path.join(__dirname, './**/**.entity{.ts,.js}'),

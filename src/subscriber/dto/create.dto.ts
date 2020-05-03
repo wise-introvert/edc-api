@@ -1,4 +1,5 @@
-import { IsNotEmpty, IsInt, IsPhoneNumber, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsPhoneNumber, IsOptional } from 'class-validator';
+import Membership from 'src/membership/membership.entity';
 
 export default class CreateSubscriberDTO {
   @IsNotEmpty()
@@ -11,9 +12,6 @@ export default class CreateSubscriberDTO {
 
   @IsNotEmpty()
   lastName: string;
-
-  @IsNotEmpty()
-  centerId: string;
 
   motherName: string;
 
@@ -36,4 +34,7 @@ export default class CreateSubscriberDTO {
   school: string;
 
   curriculum: string;
+
+  @IsNotEmpty()
+  membership: Membership;
 }

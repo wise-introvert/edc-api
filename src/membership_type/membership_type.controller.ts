@@ -20,7 +20,9 @@ export class MembershipTypeController {
   constructor(private service: MembershipTypeService) {}
 
   @Get('/:id')
-  async getMembershipType(@Param('id') id: string): Promise<MembershipType | MembershipType[]> {
+  async getMembershipType(
+    @Param('id') id: string,
+  ): Promise<MembershipType | MembershipType[]> {
     return this.service.get(id);
   }
 
@@ -33,7 +35,9 @@ export class MembershipTypeController {
   }
 
   @Post()
-  async createMembershipType(@Body() dto: CreateMembershipTypeDTO): Promise<MembershipType> {
+  async createMembershipType(
+    @Body() dto: CreateMembershipTypeDTO,
+  ): Promise<MembershipType> {
     return this.service.createMembershipType(dto);
   }
 

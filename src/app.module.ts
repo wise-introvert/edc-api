@@ -7,8 +7,8 @@ import { ResourceModule } from './resource/resource.module';
 import { MembershipTypeModule } from './membership_type/membership_type.module';
 
 import getOrmConfig from './orm.config';
-import { ErrorFilter } from './common';
-import { APP_FILTER } from '@nestjs/core';
+import { MemberModule } from './member/member.module';
+import { MembershipModule } from './membership/membership.module';
 
 @Module({
   imports: [
@@ -16,8 +16,10 @@ import { APP_FILTER } from '@nestjs/core';
     CenterModule,
     SubscriberModule,
     ResourceModule,
-    MembershipTypeModule
+    MembershipTypeModule,
+    MemberModule,
+    MembershipModule,
   ],
-  providers: [{ provide: APP_FILTER, useClass: ErrorFilter }],
+  providers: [],
 })
 export class AppModule {}

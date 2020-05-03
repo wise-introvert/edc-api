@@ -4,16 +4,15 @@ import {
   PrimaryColumn,
   Column,
   CreateDateColumn,
+  OneToOne,
+  JoinColumn,
   UpdateDateColumn,
   BeforeInsert,
   BeforeUpdate,
-  OneToOne,
-  JoinColumn,
   Unique,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
-
-import Center from '../center/center.entity';
+import Membership from 'src/membership/membership.entity';
 
 @Entity('subscribers')
 @Unique(['displayId'])
@@ -66,11 +65,12 @@ export default class Subscriber extends BaseEntity {
   @UpdateDateColumn()
   updated: Date;
 
-  @Column()
-  centerId: string;
-  @OneToOne(type => Center)
-  @JoinColumn({ name: 'centerId' })
-  center: Center;
+  @OneToOne(
+    type => Membership,
+    membership => membership.subscriber,
+  )
+  @JoinColumn()
+  membership: Membership;
 
   @BeforeInsert()
   setup() {
