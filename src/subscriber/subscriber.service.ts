@@ -20,7 +20,7 @@ export class SubscriberService {
     return this.repo.updateSubscriber(id, dto);
   }
 
-  async deleteSubscriber(id: string): Promise<Boolean> {
+  async deleteSubscriber(id: string): Promise<boolean> {
     return this.repo.deleteSubscriber(id);
   }
 }

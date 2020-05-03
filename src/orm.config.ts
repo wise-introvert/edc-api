@@ -20,7 +20,7 @@ const development: any = {
 };
 const production: any = {
   type: 'mysql',
-  host: 'sql129.main-hosting.eu',
+  host: '156.67.222.43',
   port: 3306,
   username: 'u309678516_rfcetl',
   password: 'Nostalgia@2k18',

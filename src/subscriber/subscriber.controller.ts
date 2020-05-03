@@ -50,7 +50,7 @@ export class SubscriberController {
   }
 
   @Delete('/:id')
-  async deleteSubscriber(@Param('id') id: string): Promise<Boolean> {
+  async deleteSubscriber(@Param('id') id: string): Promise<boolean> {
     return this.service.deleteSubscriber(id);
   }
 }

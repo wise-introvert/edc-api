@@ -66,7 +66,7 @@ export default class SubscriberRepo extends Repository<Subscriber> {
     );
   }
 
-  async deleteSubscriber(id: string): Promise<Boolean> {
+  async deleteSubscriber(id: string): Promise<boolean> {
     try {
       await Subscriber.delete({ id });
       return true;

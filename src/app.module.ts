@@ -3,6 +3,9 @@ import { Module } from '@nestjs/common';
 
 import { CenterModule } from './center/center.module';
 import { SubscriberModule } from './subscriber/subscriber.module';
+import { ResourceModule } from './resource/resource.module';
+import { MembershipTypeModule } from './membership_type/membership_type.module';
+
 import getOrmConfig from './orm.config';
 import { ErrorFilter } from './common';
 import { APP_FILTER } from '@nestjs/core';
@@ -12,6 +15,8 @@ import { APP_FILTER } from '@nestjs/core';
     TypeOrmModule.forRoot(getOrmConfig()),
     CenterModule,
     SubscriberModule,
+    ResourceModule,
+    MembershipTypeModule
   ],
   providers: [{ provide: APP_FILTER, useClass: ErrorFilter }],
 })
