@@ -9,11 +9,11 @@ import { SubscriberModule } from './subscriber/subscriber.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
+      host: 'sql129.main-hosting.eu',
       port: 3306,
-      username: 'root',
-      password: '',
-      database: 'edc',
+      username: 'u309678516_rfcetl',
+      password: 'Nostalgia@2k18',
+      database: 'u309678516_rfcetl',
       synchronize: true,
       logging: false,
       entities: [
