@@ -8,7 +8,7 @@ import {
   ConflictException,
 } from '@nestjs/common';
 import { compare } from './util';
-import { RegisterResponse } from './model';
+import { RegisterResponse, Payload, LoginResponse } from './model';
 import UpdateMemberDTO from './dto/update.dto';
 
 @EntityRepository(Member)
@@ -28,7 +28,7 @@ export default class MemberRepo extends Repository<Member> {
     };
   }
 
-  async login(dto: LoginDTO): Promise<boolean> {
+  async login(dto: LoginDTO): Promise<Member> {
     const member: Member = await Member.findOne({
       where: { username: dto.username },
     });
@@ -41,7 +41,7 @@ export default class MemberRepo extends Repository<Member> {
       throw new UnauthorizedException(`Invalid username/password`);
     }
 
-    return true;
+    return member;
   }
 
   async updateMember(id: string, dto: UpdateMemberDTO): Promise<boolean> {

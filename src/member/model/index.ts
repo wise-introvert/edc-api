@@ -1,2 +1,3 @@
 export { default as LOA } from "./loa.model";
-export { default as RegisterResponse } from "./registerResponse.model";
+export * from "./response.model";
+export { default as Payload } from "./payload.model";

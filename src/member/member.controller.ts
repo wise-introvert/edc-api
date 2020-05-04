@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { MemberService } from './member.service';
 import { RegisterDTO, LoginDTO, UpdateDTO } from './dto';
-import { RegisterResponse } from './model';
+import { RegisterResponse, LoginResponse } from './model';
 
 @Controller('member')
 @UsePipes(ValidationPipe)
@@ -22,7 +22,7 @@ export class MemberController {
   }
 
   @Post('/login')
-  async login(@Body() dto: LoginDTO): Promise<boolean> {
+  async login(@Body() dto: LoginDTO): Promise<LoginResponse> {
     return this.service.login(dto);
   }
 
