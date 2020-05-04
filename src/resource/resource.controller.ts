@@ -37,9 +37,7 @@ export class ResourceController {
   }
 
   @Post()
-  async createResource(
-    @Body(ResourceTypeValidatorPipe) dto: CreateResourceDTO,
-  ): Promise<Resource> {
+  async createResource(@Body() dto: CreateResourceDTO): Promise<Resource> {
     return this.service.createResource(dto);
   }
 

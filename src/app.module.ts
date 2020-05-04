@@ -8,6 +8,7 @@ import { MembershipTypeModule } from './membership_type/membership_type.module';
 import getOrmConfig from './orm.config';
 import { MemberModule } from './member/member.module';
 import { MembershipModule } from './membership/membership.module';
+import { TransactionModule } from './transaction/transaction.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { MembershipModule } from './membership/membership.module';
     MembershipTypeModule,
     MemberModule,
     MembershipModule,
+    TransactionModule,
   ],
   providers: [],
 })

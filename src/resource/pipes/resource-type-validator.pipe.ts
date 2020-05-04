@@ -8,10 +8,12 @@ import { ResourceType } from '../model';
 
 @Injectable()
 export default class ResourceTypeValidatorPipe implements PipeTransform {
-  transform(value: any, metadata: ArgumentMetadata) {
-    value = value.toLowerCase();
+  transform(v: any, metadata: ArgumentMetadata) {
+    let value: string = v as string;
 
-    const valid: boolean = Object.values(ResourceType).includes(value);
+    const valid: boolean = Object.values(ResourceType).includes(
+      value as ResourceType,
+    );
 
     if (!valid) {
       throw new BadRequestException(
