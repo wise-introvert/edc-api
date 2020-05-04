@@ -9,18 +9,23 @@ import {
   Param,
   UsePipes,
   ValidationPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { MembershipService } from './membership.service';
 import Membership from './membership.entity';
 import { CreateMembershipDTO, UpdateMembershipDTO } from './dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('membership')
 @UsePipes(ValidationPipe)
+@UseGuards(AuthGuard())
 export class MembershipController {
   constructor(private service: MembershipService) {}
 
   @Get('/:id')
-  async getMembership(@Param('id') id: string): Promise<Membership | Membership[]> {
+  async getMembership(
+    @Param('id') id: string,
+  ): Promise<Membership | Membership[]> {
     return this.service.get(id);
   }
 
@@ -33,7 +38,9 @@ export class MembershipController {
   }
 
   @Post()
-  async createMembership(@Body() dto: CreateMembershipDTO): Promise<Membership> {
+  async createMembership(
+    @Body() dto: CreateMembershipDTO,
+  ): Promise<Membership> {
     return this.service.createMembership(dto);
   }
 

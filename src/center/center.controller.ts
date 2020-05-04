@@ -9,6 +9,7 @@ import {
   Param,
   UsePipes,
   ValidationPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { CenterService } from './center.service';
 import Center from './center.entity';

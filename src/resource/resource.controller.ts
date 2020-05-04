@@ -9,13 +9,16 @@ import {
   Param,
   UsePipes,
   ValidationPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { ResourceService } from './resource.service';
 import Resource from './resource.entity';
 import { CreateResourceDTO, UpdateResourceDTO } from './dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('resource')
 @UsePipes(ValidationPipe)
+@UseGuards(AuthGuard())
 export class ResourceController {
   constructor(private service: ResourceService) {}
 

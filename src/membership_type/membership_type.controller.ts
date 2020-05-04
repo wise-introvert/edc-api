@@ -9,13 +9,16 @@ import {
   Param,
   UsePipes,
   ValidationPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { MembershipTypeService } from './membership_type.service';
 import MembershipType from './membership_type.entity';
 import { CreateMembershipTypeDTO, UpdateMembershipTypeDTO } from './dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('membership_type')
 @UsePipes(ValidationPipe)
+@UseGuards(AuthGuard())
 export class MembershipTypeController {
   constructor(private service: MembershipTypeService) {}
 

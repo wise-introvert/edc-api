@@ -9,13 +9,16 @@ import {
   Param,
   ValidationPipe,
   UsePipes,
+  UseGuards,
 } from '@nestjs/common';
 import { SubscriberService } from './subscriber.service';
 import Subscriber from './subscriber.entity';
 import { CreateSubscriberDTO, UpdateSubscriberDTO } from './dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('subscriber')
 @UsePipes(ValidationPipe)
+@UseGuards(AuthGuard())
 export class SubscriberController {
   constructor(private service: SubscriberService) {}
 
