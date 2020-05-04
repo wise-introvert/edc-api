@@ -11,9 +11,6 @@ export default class UpdateResourceDTO {
   @IsNotEmpty()
   type?: string;
 
-  @IsNotEmpty()
-  center?: Center;
-
   author?: string;
 
   toyPieces?: number;

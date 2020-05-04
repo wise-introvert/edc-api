@@ -7,12 +7,8 @@ import {
   Column,
   BeforeInsert,
   BeforeUpdate,
-  OneToOne,
-  JoinColumn,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
-
-import Center from '../center/center.entity';
 
 @Entity('resources')
 export default class Resource extends BaseEntity {
@@ -28,10 +24,10 @@ export default class Resource extends BaseEntity {
   @Column()
   type: string;
 
-  @Column()
+  @Column({ nullable: true })
   author: string;
 
-  @Column()
+  @Column({ nullable: true })
   toyPieces: number;
 
   @CreateDateColumn()
@@ -40,15 +36,11 @@ export default class Resource extends BaseEntity {
   @UpdateDateColumn()
   updated: number;
 
-  @Column()
+  @Column({ nullable: true })
   createdBy: string;
 
-  @Column()
+  @Column({ nullable: true })
   updatedBy: string;
-
-  @OneToOne(type => Center)
-  @JoinColumn({ name: 'centerId' })
-  center: Center;
 
   @BeforeInsert()
   setup() {

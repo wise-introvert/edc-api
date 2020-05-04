@@ -24,10 +24,10 @@ export default class MembershipType extends BaseEntity {
   @UpdateDateColumn()
   updated: number;
 
-  @Column()
+  @Column({ nullable: true })
   createdBy: string;
 
-  @Column()
+  @Column({ nullable: true })
   updatedBy: string;
 
   @BeforeInsert()

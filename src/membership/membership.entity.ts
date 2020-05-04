@@ -7,13 +7,8 @@ import {
   Column,
   BeforeInsert,
   BeforeUpdate,
-  OneToOne,
-  JoinColumn,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
-
-import MembershipType from '../membership_type/membership_type.entity';
-import Subscriber from '../subscriber/subscriber.entity';
 
 @Entity('memberships')
 export default class Membership extends BaseEntity {
@@ -21,7 +16,7 @@ export default class Membership extends BaseEntity {
   id: string;
 
   @Column()
-  duration: number;
+  duration: string;
 
   @Column()
   fees: number;
@@ -32,21 +27,11 @@ export default class Membership extends BaseEntity {
   @UpdateDateColumn()
   updated: number;
 
-  @Column()
+  @Column({ nullable: true })
   createdBy: string;
 
-  @Column()
+  @Column({ nullable: true })
   updatedBy: string;
-
-  @OneToOne(type => MembershipType)
-  @JoinColumn({ name: 'membershipTypeId' })
-  membershipType: MembershipType;
-
-  @OneToOne(
-    type => Subscriber,
-    subscriber => subscriber.membership,
-  )
-  subscriber: Subscriber;
 
   @BeforeInsert()
   setup() {

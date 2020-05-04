@@ -16,18 +16,14 @@ export default class SubscriberRepo extends Repository<Subscriber> {
   async get(id?: string, q?: string): Promise<Subscriber | Subscriber[]> {
     const queryBuilder = Subscriber.createQueryBuilder('subscriber');
     if (id) {
-      const subscriber: Subscriber = await Subscriber.findOne(id, {
-        relations: ['membership', 'membership.membershipType'],
-      });
+      const subscriber: Subscriber = await Subscriber.findOne(id);
       if (!subscriber) {
-        throw new NotFoundException(`Requested subcriber does not exist`);
+        throw new NotFoundException(`Requested subscriber does not exist`);
       }
       return subscriber;
     } else {
       if (q) {
         const subscribers: Subscriber[] = await queryBuilder
-          .leftJoinAndSelect('subscriber.membership', 'membership')
-          .leftJoinAndSelect('membership.membershipType', 'membershipType')
           .where('firstName LIKE :q', { q: `%${q}%` })
           .orWhere('middleName LIKE :q', { q: `%${q}%` })
           .orWhere('lastName LIKE :q', { q: `%${q}%` })

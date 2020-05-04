@@ -1,5 +1,4 @@
 import { IsNotEmpty, IsPhoneNumber, IsOptional } from 'class-validator';
-import Membership from 'src/membership/membership.entity';
 
 export default class CreateSubscriberDTO {
   @IsNotEmpty()
@@ -25,16 +24,13 @@ export default class CreateSubscriberDTO {
 
   @IsOptional()
   @IsPhoneNumber('in')
-  motherPhoneNumber: number;
+  motherPhoneNumber: any;
 
   @IsOptional()
   @IsPhoneNumber('in')
-  fatherPhoneNumber: number;
+  fatherPhoneNumber: any;
 
   school: string;
 
   curriculum: string;
-
-  @IsNotEmpty()
-  membership: Membership;
 }

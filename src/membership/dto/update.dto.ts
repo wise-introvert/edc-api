@@ -1,6 +1,4 @@
 export default class UpdateMembershipDTO {
-  membershipTypeId?: string;
-  subscriberId?: string;
-  duration?: number;
+  duration?: string;
   fees?: number;
 }

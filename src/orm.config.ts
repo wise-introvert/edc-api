@@ -34,11 +34,11 @@ const production: any = {
 };
 const defaultConfiguration: any = {
   type: 'mysql',
-  host: 'sql129.main-hosting.eu',
+  host: 'localhost',
   port: 3306,
-  username: 'u309678516_staging',
-  password: 'staging',
-  database: 'u309678516_staging',
+  username: 'root',
+  password: '',
+  database: 'edc',
   synchronize: true,
   logging: false,
   entities: [

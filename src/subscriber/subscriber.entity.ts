@@ -4,23 +4,18 @@ import {
   PrimaryColumn,
   Column,
   CreateDateColumn,
-  OneToOne,
-  JoinColumn,
   UpdateDateColumn,
   BeforeInsert,
   BeforeUpdate,
-  Unique,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
-import Membership from 'src/membership/membership.entity';
 
 @Entity('subscribers')
-@Unique(['displayId'])
 export default class Subscriber extends BaseEntity {
   @PrimaryColumn('uuid')
   id: string;
 
-  @Column({ unique: true })
+  @Column()
   displayId: string;
 
   @Column()
@@ -44,11 +39,11 @@ export default class Subscriber extends BaseEntity {
   @Column()
   gender: number; // 0 = MALE, 1 = FEMALE
 
-  @Column('bigint', { nullable: true })
-  motherPhoneNumber?: number | null;
+  @Column({ nullable: true })
+  motherPhoneNumber?: string;
 
-  @Column('bigint', { nullable: true })
-  fatherPhoneNumber?: number | null;
+  @Column({ nullable: true })
+  fatherPhoneNumber?: string;
 
   @Column({ nullable: true })
   school?: string;
@@ -64,13 +59,6 @@ export default class Subscriber extends BaseEntity {
 
   @UpdateDateColumn()
   updated: Date;
-
-  @OneToOne(
-    type => Membership,
-    membership => membership.subscriber,
-  )
-  @JoinColumn()
-  membership: Membership;
 
   @BeforeInsert()
   setup() {
