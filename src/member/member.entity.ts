@@ -7,6 +7,7 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  AfterLoad,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 

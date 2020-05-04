@@ -6,6 +6,7 @@ import { JwtModule } from '@nestjs/jwt';
 import MemberRepo from './member.repo';
 import { MemberController } from './member.controller';
 import { MemberService } from './member.service';
+import JwtStrategy from './jwt.strategy';
 
 const secret: string = process.env.SECRET || 'BA41EE2855D5765C4845B9FB4F22F';
 
@@ -23,6 +24,7 @@ const secret: string = process.env.SECRET || 'BA41EE2855D5765C4845B9FB4F22F';
     TypeOrmModule.forFeature([MemberRepo]),
   ],
   controllers: [MemberController],
-  providers: [MemberService],
+  providers: [MemberService, JwtStrategy],
+  exports: [JwtStrategy, PassportModule],
 })
 export class MemberModule {}
