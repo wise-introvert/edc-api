@@ -1,5 +1,5 @@
 import { IsNotEmpty } from 'class-validator';
-import Center from 'src/center/center.entity';
+import { ResourceType } from '../model';
 
 export default class UpdateResourceDTO {
   @IsNotEmpty()
@@ -9,7 +9,7 @@ export default class UpdateResourceDTO {
   displayId?: string;
 
   @IsNotEmpty()
-  type?: string;
+  type?: ResourceType;
 
   author?: string;
 

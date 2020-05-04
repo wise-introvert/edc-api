@@ -9,6 +9,7 @@ import {
   BeforeUpdate,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
+import { ResourceType } from './model';
 
 @Entity('resources')
 export default class Resource extends BaseEntity {
@@ -22,7 +23,7 @@ export default class Resource extends BaseEntity {
   name: string;
 
   @Column()
-  type: string;
+  type: ResourceType;
 
   @Column({ nullable: true })
   author: string;

@@ -1,4 +1,5 @@
 import { IsNotEmpty } from 'class-validator';
+import { ResourceType } from '../model';
 
 export default class CreateResourceDTO {
   @IsNotEmpty({ message: 'Name field cannot be empty' })
@@ -8,7 +9,7 @@ export default class CreateResourceDTO {
   displayId: string;
 
   @IsNotEmpty({ message: 'Type field cannot be empty' })
-  type: string;
+  type: ResourceType;
 
   author: string;
 

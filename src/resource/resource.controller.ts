@@ -15,6 +15,7 @@ import { ResourceService } from './resource.service';
 import Resource from './resource.entity';
 import { CreateResourceDTO, UpdateResourceDTO } from './dto';
 import { AuthGuard } from '@nestjs/passport';
+import { ResourceTypeValidatorPipe } from './pipes';
 
 @Controller('resource')
 @UsePipes(ValidationPipe)
@@ -36,7 +37,9 @@ export class ResourceController {
   }
 
   @Post()
-  async createResource(@Body() dto: CreateResourceDTO): Promise<Resource> {
+  async createResource(
+    @Body(ResourceTypeValidatorPipe) dto: CreateResourceDTO,
+  ): Promise<Resource> {
     return this.service.createResource(dto);
   }
 
