@@ -6,15 +6,10 @@ import {
   Param,
   UsePipes,
   ValidationPipe,
-  Get,
-  UseGuards,
 } from '@nestjs/common';
 import { MemberService } from './member.service';
 import { RegisterDTO, LoginDTO, UpdateDTO } from './dto';
 import { RegisterResponse, LoginResponse } from './model';
-import { AuthGuard } from '@nestjs/passport';
-import ExtractMember from './member.decorator';
-import Member from './member.entity';
 
 @Controller('member')
 @UsePipes(ValidationPipe)
@@ -37,11 +32,5 @@ export class MemberController {
     @Body() dto: UpdateDTO,
   ): Promise<boolean> {
     return this.service.update(id, dto);
-  }
-
-  @Get('/test')
-  @UseGuards(AuthGuard())
-  test(@ExtractMember() member: Member): any {
-    return member;
   }
 }
