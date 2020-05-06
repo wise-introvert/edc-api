@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common';
 import { CreateResourceDTO, UpdateResourceDTO } from './dto';
 import Member from 'src/member/member.entity';
+import { removePasswords } from 'src/util';
 
 @EntityRepository(Resource)
 export default class ResourceRepo extends Repository<Resource> {
@@ -22,29 +23,18 @@ export default class ResourceRepo extends Repository<Resource> {
         throw new NotFoundException('Requested resource does not exits');
       }
 
-      delete resource?.createdBy.password;
-      delete resource?.updatedBy.password;
-      return resource;
+      return removePasswords(resource);
     } else {
       const queryBuilder = Resource.createQueryBuilder();
       if (q) {
         const resources: Resource[] = await queryBuilder
           .where('name LIKE :q', { q: `%${q}%` })
           .getMany();
-        return resources.map((resource: Resource) => {
-          delete resource?.updatedBy.password;
-          delete resource?.createdBy.password;
-          return resource;
-        });
+        return removePasswords(resources);
       } else {
         const resources: Resource[] = await Resource.find();
         if (resources) {
-          const toReturn: Resource[] = resources.map((resource: Resource) => {
-            delete resource?.updatedBy?.password;
-            delete resource?.createdBy?.password;
-            return resource;
-          });
-          return toReturn;
+          return removePasswords(resources);
         } else {
           return [];
         }
@@ -71,10 +61,7 @@ export default class ResourceRepo extends Repository<Resource> {
 
     await resource.save();
 
-    delete resource?.updatedBy?.password;
-    delete resource?.createdBy?.password;
-
-    return resource;
+    return removePasswords(resource);
   }
 
   // update a resource

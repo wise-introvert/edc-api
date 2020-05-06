@@ -7,7 +7,7 @@ import {
   InternalServerErrorException,
   ConflictException,
 } from '@nestjs/common';
-import { compare } from './util';
+import { compare } from '../util';
 import { RegisterResponse } from './model';
 import UpdateMemberDTO from './dto/update.dto';
 

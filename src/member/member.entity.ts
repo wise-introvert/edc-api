@@ -12,7 +12,7 @@ import {
 import { v4 as uuid } from 'uuid';
 
 import { LOA } from './model';
-import { hash } from './util';
+import { hash } from '../util';
 import Center from 'src/center/center.entity';
 
 @Entity('members')
