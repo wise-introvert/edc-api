@@ -3,8 +3,8 @@ import Subscriber from '../../subscriber/subscriber.entity';
 import Resource from 'src/resource/resource.entity';
 
 export default class CreateTransactionDTO {
-  subscriber: Subscriber;
   type: TransactionType;
+  subscriber: Subscriber;
   resource: Resource;
   remarks?: string;
 }
