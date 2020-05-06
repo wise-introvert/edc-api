@@ -38,6 +38,12 @@ export default class Member extends BaseEntity {
   @ManyToOne(() => Center, { eager: true })
   center: Center;
 
+  @Column({ type: 'timestamp', nullable: true, precision: 6 })
+  lastActive: number;
+
+  @Column('boolean', { default: true })
+  active: boolean;
+
   @BeforeInsert()
   async setup() {
     this.id = uuid();

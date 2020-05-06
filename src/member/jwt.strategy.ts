@@ -21,7 +21,7 @@ export default class JwtStrategy extends PassportStrategy(Strategy) {
     const { id } = payload;
     const member: Member = await this.repo.findOne(id);
 
-    if (!member) {
+    if (!member || !member.active) {
       throw new UnauthorizedException();
     }
 
