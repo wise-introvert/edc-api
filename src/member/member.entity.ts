@@ -35,7 +35,7 @@ export default class Member extends BaseEntity {
   @UpdateDateColumn()
   updated: Date;
 
-  @ManyToOne(() => Center)
+  @ManyToOne(() => Center, { eager: true })
   center: Center;
 
   @BeforeInsert()

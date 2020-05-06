@@ -7,9 +7,11 @@ import {
   Column,
   BeforeInsert,
   BeforeUpdate,
+  ManyToOne,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 import { ResourceType } from './model';
+import Center from 'src/center/center.entity';
 
 @Entity('resources')
 export default class Resource extends BaseEntity {
@@ -37,11 +39,8 @@ export default class Resource extends BaseEntity {
   @UpdateDateColumn()
   updated: number;
 
-  @Column({ nullable: true })
-  createdBy: string;
-
-  @Column({ nullable: true })
-  updatedBy: string;
+  @ManyToOne(() => Center, { eager: true })
+  center: Center;
 
   @BeforeInsert()
   setup() {
