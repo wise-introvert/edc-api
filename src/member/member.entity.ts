@@ -7,12 +7,13 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  AfterLoad,
+  ManyToOne,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
 import { LOA } from './model';
 import { hash } from './util';
+import Center from 'src/center/center.entity';
 
 @Entity('members')
 export default class Member extends BaseEntity {
@@ -33,6 +34,9 @@ export default class Member extends BaseEntity {
 
   @UpdateDateColumn()
   updated: Date;
+
+  @ManyToOne(() => Center)
+  center: Center;
 
   @BeforeInsert()
   async setup() {

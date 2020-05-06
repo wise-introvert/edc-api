@@ -32,20 +32,7 @@ const production: any = {
     path.join(__dirname, './**/**.entity{.ts,.js}'),
   ],
 };
-const defaultConfiguration: any = {
-  type: 'mysql',
-  host: 'localhost',
-  port: 3306,
-  username: 'root',
-  password: '',
-  database: 'edc',
-  synchronize: true,
-  logging: false,
-  entities: [
-    path.join(__dirname, '../dist/**/**.entity{.ts,.js}'),
-    path.join(__dirname, './**/**.entity{.ts,.js}'),
-  ],
-};
+const defaultConfiguration: any = development;
 
 export default function getOrmConfig(): any {
   switch (env) {

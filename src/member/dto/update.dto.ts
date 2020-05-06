@@ -1,5 +1,7 @@
-import { IsNotEmpty, IsInt } from "class-validator";
-import { LOA } from "../model";
+import { IsNotEmpty, IsInt } from 'class-validator';
+
+import { LOA } from '../model';
+import Center from 'src/center/center.entity';
 
 export default class UpdateMemberDTO {
   @IsNotEmpty()
@@ -7,4 +9,6 @@ export default class UpdateMemberDTO {
 
   @IsInt()
   loa?: LOA;
+
+  center: Center;
 }
