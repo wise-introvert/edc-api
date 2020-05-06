@@ -15,6 +15,9 @@ import { MembershipService } from './membership.service';
 import Membership from './membership.entity';
 import { CreateMembershipDTO, UpdateMembershipDTO } from './dto';
 import { AuthGuard } from '@nestjs/passport';
+import { ExtractMember } from 'src/common';
+import Member from 'src/member/member.entity';
+import { DurationValidatorPipe } from './pipes';
 
 @Controller('membership')
 @UsePipes(ValidationPipe)
@@ -39,17 +42,19 @@ export class MembershipController {
 
   @Post()
   async createMembership(
-    @Body() dto: CreateMembershipDTO,
+    @Body(DurationValidatorPipe) dto: CreateMembershipDTO,
+    @ExtractMember() member: Member,
   ): Promise<Membership> {
-    return this.service.createMembership(dto);
+    return this.service.createMembership(dto, member);
   }
 
   @Patch('/:id')
   async updateMembership(
     @Param('id') id: string,
-    @Body() dto: UpdateMembershipDTO,
+    @Body(DurationValidatorPipe) dto: UpdateMembershipDTO,
+    @ExtractMember() member: Member,
   ): Promise<void> {
-    return this.service.updateMembership(id, dto);
+    return this.service.updateMembership(id, dto, member);
   }
 
   @Delete('/:id')

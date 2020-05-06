@@ -3,6 +3,7 @@ import MembershipRepo from './membership.repo';
 import Membership from './membership.entity';
 import { CreateMembershipDTO, UpdateMembershipDTO } from './dto';
 import { InjectRepository } from '@nestjs/typeorm';
+import Member from 'src/member/member.entity';
 
 @Injectable()
 export class MembershipService {
@@ -12,12 +13,12 @@ export class MembershipService {
     return this.repo.get(id, q);
   }
 
-  async createMembership(dto: CreateMembershipDTO): Promise<Membership> {
-    return this.repo.createMembership(dto);
+  async createMembership(dto: CreateMembershipDTO, member: Member): Promise<Membership> {
+    return this.repo.createMembership(dto, member);
   }
 
-  async updateMembership(id: string, dto: UpdateMembershipDTO): Promise<void> {
-    return this.repo.updateMembership(id, dto);
+  async updateMembership(id: string, dto: UpdateMembershipDTO, member: Member): Promise<void> {
+    return this.repo.updateMembership(id, dto, member);
   }
 
   async deleteMembership(id: string): Promise<boolean> {
