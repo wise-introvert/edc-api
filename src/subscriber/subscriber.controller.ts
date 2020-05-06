@@ -15,6 +15,8 @@ import { SubscriberService } from './subscriber.service';
 import Subscriber from './subscriber.entity';
 import { CreateSubscriberDTO, UpdateSubscriberDTO } from './dto';
 import { AuthGuard } from '@nestjs/passport';
+import { ExtractMember } from 'src/common';
+import Member from 'src/member/member.entity';
 
 @Controller('subscriber')
 @UsePipes(ValidationPipe)
@@ -40,16 +42,18 @@ export class SubscriberController {
   @Post()
   async createSubscriber(
     @Body() dto: CreateSubscriberDTO,
+    @ExtractMember() member: Member,
   ): Promise<Subscriber> {
-    return this.service.createSubscriber(dto);
+    return this.service.createSubscriber(dto, member);
   }
 
   @Patch('/:id')
   async updateSubscriber(
     @Param('id') id: string,
     @Body() dto: UpdateSubscriberDTO,
+    @ExtractMember() member: Member,
   ): Promise<void> {
-    return this.service.updateSubscriber(id, dto);
+    return this.service.updateSubscriber(id, dto, member);
   }
 
   @Delete('/:id')

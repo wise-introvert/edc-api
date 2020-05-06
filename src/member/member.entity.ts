@@ -38,8 +38,8 @@ export default class Member extends BaseEntity {
   @ManyToOne(() => Center, { eager: true })
   center: Center;
 
-  @Column({ type: 'timestamp', nullable: true, precision: 6 })
-  lastActive: number;
+  @Column('datetime')
+  lastActive: Date;
 
   @Column('boolean', { default: true })
   active: boolean;

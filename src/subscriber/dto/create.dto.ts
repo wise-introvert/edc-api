@@ -1,4 +1,5 @@
 import { IsNotEmpty, IsPhoneNumber, IsOptional } from 'class-validator';
+import Center from 'src/center/center.entity';
 
 export default class CreateSubscriberDTO {
   @IsNotEmpty()
@@ -30,7 +31,12 @@ export default class CreateSubscriberDTO {
   @IsPhoneNumber('in')
   fatherPhoneNumber: any;
 
+  @IsOptional()
   school: string;
 
+  @IsOptional()
   curriculum: string;
+
+  @IsNotEmpty()
+  center: Center;
 }

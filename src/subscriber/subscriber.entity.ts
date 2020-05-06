@@ -7,8 +7,11 @@ import {
   UpdateDateColumn,
   BeforeInsert,
   BeforeUpdate,
+  ManyToOne,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
+import Center from 'src/center/center.entity';
+import Member from 'src/member/member.entity';
 
 @Entity('subscribers')
 export default class Subscriber extends BaseEntity {
@@ -59,6 +62,18 @@ export default class Subscriber extends BaseEntity {
 
   @UpdateDateColumn()
   updated: Date;
+
+  @Column('boolean', { default: true })
+  active: boolean;
+
+  @ManyToOne(() => Center, { eager: true })
+  center: Center;
+
+  @ManyToOne(() => Member, { eager: true })
+  createdBy: Member;
+
+  @ManyToOne(() => Member, { eager: true })
+  updatedBy: Member;
 
   @BeforeInsert()
   setup() {

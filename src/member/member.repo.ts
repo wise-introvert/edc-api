@@ -41,7 +41,7 @@ export default class MemberRepo extends Repository<Member> {
       throw new UnauthorizedException(`Invalid username/password`);
     }
 
-    member.lastActive = new Date().getTime();
+    member.lastActive = new Date();
     await member.save();
 
     return member;
