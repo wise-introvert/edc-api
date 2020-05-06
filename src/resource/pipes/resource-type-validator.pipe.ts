@@ -9,7 +9,7 @@ import { ResourceType } from '../model';
 @Injectable()
 export default class ResourceTypeValidatorPipe implements PipeTransform {
   transform(v: any, metadata: ArgumentMetadata) {
-    let value: string = v as string;
+    let value: string = v.type;
 
     const valid: boolean = Object.values(ResourceType).includes(
       value as ResourceType,
@@ -23,6 +23,6 @@ export default class ResourceTypeValidatorPipe implements PipeTransform {
       );
     }
 
-    return value;
+    return v;
   }
 }

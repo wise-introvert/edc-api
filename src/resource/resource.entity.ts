@@ -12,6 +12,7 @@ import {
 import { v4 as uuid } from 'uuid';
 import { ResourceType } from './model';
 import Center from 'src/center/center.entity';
+import Member from 'src/member/member.entity';
 
 @Entity('resources')
 export default class Resource extends BaseEntity {
@@ -41,6 +42,12 @@ export default class Resource extends BaseEntity {
 
   @ManyToOne(() => Center, { eager: true })
   center: Center;
+
+  @ManyToOne(() => Member, { eager: true })
+  createdBy: Member;
+
+  @ManyToOne(() => Member, { eager: true })
+  updatedBy: Member;
 
   @BeforeInsert()
   setup() {

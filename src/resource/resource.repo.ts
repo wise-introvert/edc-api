@@ -1,11 +1,12 @@
-
 import { Repository, EntityRepository } from 'typeorm';
 import Resource from './resource.entity';
 import {
   NotFoundException,
   InternalServerErrorException,
+  ConflictException,
 } from '@nestjs/common';
 import { CreateResourceDTO, UpdateResourceDTO } from './dto';
+import Member from 'src/member/member.entity';
 
 @EntityRepository(Resource)
 export default class ResourceRepo extends Repository<Resource> {
@@ -21,6 +22,8 @@ export default class ResourceRepo extends Repository<Resource> {
         throw new NotFoundException('Requested resource does not exits');
       }
 
+      delete resource?.createdBy.password;
+      delete resource?.updatedBy.password;
       return resource;
     } else {
       const queryBuilder = Resource.createQueryBuilder();
@@ -28,29 +31,62 @@ export default class ResourceRepo extends Repository<Resource> {
         const resources: Resource[] = await queryBuilder
           .where('name LIKE :q', { q: `%${q}%` })
           .getMany();
-        return resources;
+        return resources.map((resource: Resource) => {
+          delete resource?.updatedBy.password;
+          delete resource?.createdBy.password;
+          return resource;
+        });
       } else {
         const resources: Resource[] = await Resource.find();
-        return resources;
+        if (resources) {
+          const toReturn: Resource[] = resources.map((resource: Resource) => {
+            delete resource?.updatedBy?.password;
+            delete resource?.createdBy?.password;
+            return resource;
+          });
+          return toReturn;
+        } else {
+          return [];
+        }
       }
     }
   }
 
   // create a resource
-  async createResource(dto: CreateResourceDTO): Promise<Resource> {
+  async createResource(
+    dto: CreateResourceDTO,
+    member: Member,
+  ): Promise<Resource> {
+    const existing: Resource[] = await Resource.find({
+      where: { displayId: dto.displayId },
+    });
+    if (existing.length) {
+      throw new ConflictException(`Duplicate Display ID`);
+    }
+
     const resource: Resource = Resource.create({
       ...dto,
+      createdBy: member,
     });
+
     await resource.save();
+
+    delete resource?.updatedBy?.password;
+    delete resource?.createdBy?.password;
+
     return resource;
   }
 
   // update a resource
-  async updateResource(id: string, dto: UpdateResourceDTO): Promise<void> {
+  async updateResource(
+    id: string,
+    dto: UpdateResourceDTO,
+    member: Member,
+  ): Promise<void> {
     const queryBuilder = Resource.createQueryBuilder();
     await queryBuilder
       .update()
-      .set({ ...dto })
+      .set({ ...dto, updatedBy: member })
       .where('id = :id', { id })
       .execute();
   }

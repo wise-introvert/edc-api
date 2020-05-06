@@ -16,6 +16,8 @@ import Resource from './resource.entity';
 import { CreateResourceDTO, UpdateResourceDTO } from './dto';
 import { AuthGuard } from '@nestjs/passport';
 import { ResourceTypeValidatorPipe } from './pipes';
+import { ExtractMember } from 'src/common';
+import Member from 'src/member/member.entity';
 
 @Controller('resource')
 @UsePipes(ValidationPipe)
@@ -37,16 +39,20 @@ export class ResourceController {
   }
 
   @Post()
-  async createResource(@Body() dto: CreateResourceDTO): Promise<Resource> {
-    return this.service.createResource(dto);
+  async createResource(
+    @Body(ResourceTypeValidatorPipe) dto: CreateResourceDTO,
+    @ExtractMember() member: Member,
+  ): Promise<Resource> {
+    return this.service.createResource(dto, member);
   }
 
   @Patch('/:id')
   async updateResource(
     @Param('id') id: string,
     @Body() dto: UpdateResourceDTO,
+    @ExtractMember() member: Member,
   ): Promise<void> {
-    return this.service.updateResource(id, dto);
+    return this.service.updateResource(id, dto, member);
   }
 
   @Delete('/:id')

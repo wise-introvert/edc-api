@@ -1,5 +1,5 @@
 import { ExecutionContext, createParamDecorator } from '@nestjs/common';
-import Member from './member.entity';
+import Member from '../../member/member.entity';
 
 const ExtractMember = createParamDecorator(
   (data: unknown, ctx: ExecutionContext): Partial<Member> => {

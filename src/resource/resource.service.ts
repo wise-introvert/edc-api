@@ -3,6 +3,7 @@ import ResourceRepo from './resource.repo';
 import Resource from './resource.entity';
 import { CreateResourceDTO, UpdateResourceDTO } from './dto';
 import { InjectRepository } from '@nestjs/typeorm';
+import Member from 'src/member/member.entity';
 
 @Injectable()
 export class ResourceService {
@@ -12,12 +13,19 @@ export class ResourceService {
     return this.repo.get(id, q);
   }
 
-  async createResource(dto: CreateResourceDTO): Promise<Resource> {
-    return this.repo.createResource(dto);
+  async createResource(
+    dto: CreateResourceDTO,
+    member: Member,
+  ): Promise<Resource> {
+    return this.repo.createResource(dto, member);
   }
 
-  async updateResource(id: string, dto: UpdateResourceDTO): Promise<void> {
-    return this.repo.updateResource(id, dto);
+  async updateResource(
+    id: string,
+    dto: UpdateResourceDTO,
+    member: Member,
+  ): Promise<void> {
+    return this.repo.updateResource(id, dto, member);
   }
 
   async deleteResource(id: string): Promise<boolean> {
