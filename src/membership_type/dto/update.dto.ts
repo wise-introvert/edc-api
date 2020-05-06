@@ -1,6 +1,10 @@
-import { IsNotEmpty } from "class-validator";
+import { IsOptional } from 'class-validator';
+import Center from 'src/center/center.entity';
 
 export default class UpdateMembershipTypeDTO {
-  @IsNotEmpty()
-  name?: string;
+  @IsOptional()
+  type?: string;
+
+  @IsOptional()
+  center: Center;
 }

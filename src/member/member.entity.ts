@@ -30,10 +30,10 @@ export default class Member extends BaseEntity {
   loa: LOA;
 
   @CreateDateColumn()
-  created: Date;
+  created: number;
 
   @UpdateDateColumn()
-  updated: Date;
+  updated: number;
 
   @ManyToOne(() => Center, { eager: true })
   center: Center;
@@ -42,14 +42,14 @@ export default class Member extends BaseEntity {
   async setup() {
     this.id = uuid();
     const timestamp: Date = new Date();
-    this.created = timestamp;
-    this.updated = timestamp;
+    this.created = timestamp.getTime();
+    this.updated = timestamp.getTime();
     this.password = await hash(this.password);
   }
 
   @BeforeUpdate()
   update() {
     const timestamp: Date = new Date();
-    this.updated = timestamp;
+    this.updated = timestamp.getTime();
   }
 }

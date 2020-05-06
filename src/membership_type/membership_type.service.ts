@@ -3,6 +3,7 @@ import MembershipTypeRepo from './membership_type.repo';
 import MembershipType from './membership_type.entity';
 import { CreateMembershipTypeDTO, UpdateMembershipTypeDTO } from './dto';
 import { InjectRepository } from '@nestjs/typeorm';
+import Member from 'src/member/member.entity';
 
 @Injectable()
 export class MembershipTypeService {
@@ -19,15 +20,17 @@ export class MembershipTypeService {
 
   async createMembershipType(
     dto: CreateMembershipTypeDTO,
+    member: Member
   ): Promise<MembershipType> {
-    return this.repo.createMembershipType(dto);
+    return this.repo.createMembershipType(dto, member);
   }
 
   async updateMembershipType(
     id: string,
     dto: UpdateMembershipTypeDTO,
+    member: Member
   ): Promise<void> {
-    return this.repo.updateMembershipType(id, dto);
+    return this.repo.updateMembershipType(id, dto, member);
   }
 
   async deleteMembershipType(id: string): Promise<boolean> {

@@ -10,7 +10,7 @@ import {
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
-@Entity("centers")
+@Entity('centers')
 export default class Center extends BaseEntity {
   @PrimaryColumn('uuid')
   id: string;

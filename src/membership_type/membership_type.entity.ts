@@ -7,8 +7,11 @@ import {
   Column,
   BeforeInsert,
   BeforeUpdate,
+  ManyToOne,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
+import Member from 'src/member/member.entity';
+import Center from 'src/center/center.entity';
 
 @Entity('membership_types')
 export default class MembershipType extends BaseEntity {
@@ -16,19 +19,22 @@ export default class MembershipType extends BaseEntity {
   id: string;
 
   @Column()
-  name: string;
-
-  @CreateDateColumn()
-  created: number;
+  type: string;
 
   @UpdateDateColumn()
   updated: number;
 
-  @Column({ nullable: true })
-  createdBy: string;
+  @CreateDateColumn()
+  created: number;
 
-  @Column({ nullable: true })
-  updatedBy: string;
+  @ManyToOne(() => Center, { eager: true })
+  center: Center;
+
+  @ManyToOne(() => Member, { eager: true })
+  createdBy: Member;
+
+  @ManyToOne(() => Member, { eager: true })
+  updatedBy: Member;
 
   @BeforeInsert()
   setup() {

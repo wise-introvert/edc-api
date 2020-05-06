@@ -5,6 +5,7 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 import { CreateMembershipTypeDTO, UpdateMembershipTypeDTO } from './dto';
+import Member from 'src/member/member.entity';
 
 @EntityRepository(MembershipType)
 export default class MembershipTypeRepo extends Repository<MembershipType> {
@@ -41,9 +42,11 @@ export default class MembershipTypeRepo extends Repository<MembershipType> {
   // create a membershipType
   async createMembershipType(
     dto: CreateMembershipTypeDTO,
+    member: Member,
   ): Promise<MembershipType> {
     const membershipType: MembershipType = MembershipType.create({
       ...dto,
+      createdBy: member,
     });
     await membershipType.save();
     return membershipType;
@@ -53,11 +56,12 @@ export default class MembershipTypeRepo extends Repository<MembershipType> {
   async updateMembershipType(
     id: string,
     dto: UpdateMembershipTypeDTO,
+    member: Member,
   ): Promise<void> {
     const queryBuilder = MembershipType.createQueryBuilder();
     await queryBuilder
       .update()
-      .set({ ...dto })
+      .set({ ...dto, updatedBy: member })
       .where('id = :id', { id })
       .execute();
   }
