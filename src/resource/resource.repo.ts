@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { CreateResourceDTO, UpdateResourceDTO } from './dto';
 import Member from 'src/member/member.entity';
-import { removePasswords } from 'src/util';
+import { removePasswords } from '../common/util';
 
 @EntityRepository(Resource)
 export default class ResourceRepo extends Repository<Resource> {
