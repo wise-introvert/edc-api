@@ -12,6 +12,7 @@ import {
 import { v4 as uuid } from 'uuid';
 import Member from 'src/member/member.entity';
 import Center from 'src/center/center.entity';
+import { ValidMembershipTypes } from './model';
 
 @Entity('membership_types')
 export default class MembershipType extends BaseEntity {
@@ -19,7 +20,7 @@ export default class MembershipType extends BaseEntity {
   id: string;
 
   @Column()
-  type: string;
+  type: ValidMembershipTypes;
 
   @UpdateDateColumn()
   updated: number;

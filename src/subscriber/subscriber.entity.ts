@@ -8,10 +8,13 @@ import {
   BeforeInsert,
   BeforeUpdate,
   ManyToOne,
+  OneToOne,
+  JoinColumn,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 import Center from 'src/center/center.entity';
 import Member from 'src/member/member.entity';
+import Membership from 'src/membership/membership.entity';
 
 @Entity('subscribers')
 export default class Subscriber extends BaseEntity {
@@ -39,8 +42,8 @@ export default class Subscriber extends BaseEntity {
   @Column({ type: 'timestamp', precision: 6, nullable: true })
   dob: Date;
 
-  @Column()
-  gender: number; // 0 = MALE, 1 = FEMALE
+  @Column('char')
+  gender: string;
 
   @Column({ nullable: true })
   motherPhoneNumber?: string;
@@ -74,6 +77,14 @@ export default class Subscriber extends BaseEntity {
 
   @ManyToOne(() => Member, { eager: true })
   updatedBy: Member;
+
+  @OneToOne(
+    () => Membership,
+    membership => membership.subscriber,
+    { eager: true, cascade: true },
+  )
+  @JoinColumn()
+  membership: Membership;
 
   @BeforeInsert()
   setup() {

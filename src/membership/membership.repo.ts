@@ -17,7 +17,9 @@ export default class MembershipRepo extends Repository<Membership> {
    */
   async get(id?: string, q?: string): Promise<Membership[] | Membership> {
     if (id) {
-      const membership: Membership = await Membership.findOne(id);
+      const membership: Membership = await Membership.findOne(id, {
+        relations: ['subscriber'],
+      });
       if (!membership) {
         throw new NotFoundException('Requested membership does not exits');
       }
@@ -25,11 +27,14 @@ export default class MembershipRepo extends Repository<Membership> {
       deepRemove(membership, 'password');
       return membership;
     } else {
-      const queryBuilder = Membership.createQueryBuilder();
+      const queryBuilder = Membership.createQueryBuilder('membership');
       if (q) {
         const memberships: Membership[] = await queryBuilder
+          .leftJoinAndSelect('membership.subscriber', 'subscriber')
           .where('name LIKE :q', { q: `%${q}%` })
           .getMany();
+
+        deepRemove(memberships);
         return memberships;
       } else {
         const memberships: Membership[] = await Membership.find();

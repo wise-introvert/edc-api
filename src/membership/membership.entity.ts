@@ -8,11 +8,12 @@ import {
   BeforeInsert,
   BeforeUpdate,
   ManyToOne,
+  OneToOne,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 import Member from 'src/member/member.entity';
 import { Duration } from './model';
-import MembershipType from 'src/membership_type/membership_type.entity';
+import Subscriber from '../subscriber/subscriber.entity';
 
 @Entity('memberships')
 export default class Membership extends BaseEntity {
@@ -31,14 +32,20 @@ export default class Membership extends BaseEntity {
   @UpdateDateColumn()
   updated: number;
 
-  @ManyToOne(() => MembershipType, { eager: true })
-  membershipType: MembershipType;
+  @Column()
+  membershipType: string;
 
   @ManyToOne(() => Member, { eager: true })
   createdBy: Member;
 
   @ManyToOne(() => Member, { eager: true })
   updatedBy: Member;
+
+  @OneToOne(
+    () => Subscriber,
+    subscriber => subscriber.membership,
+  )
+  subscriber: Subscriber;
 
   @BeforeInsert()
   setup() {

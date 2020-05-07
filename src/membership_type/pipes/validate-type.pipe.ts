@@ -9,7 +9,7 @@ import { ValidMembershipTypes } from '../model';
 @Injectable()
 export default class MembershipTypeValidatorPipe implements PipeTransform {
   transform(v: any, metadata: ArgumentMetadata) {
-    let value: string = v.type.replace(' ', '');
+    let value: string = v.type.replace(/ /g, '');
 
     const valid: boolean = Object.values(ValidMembershipTypes).includes(
       value as ValidMembershipTypes,

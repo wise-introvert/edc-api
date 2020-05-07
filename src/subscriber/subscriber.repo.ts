@@ -2,11 +2,13 @@ import { Repository, EntityRepository } from 'typeorm';
 import {
   NotFoundException,
   InternalServerErrorException,
+  Logger,
 } from '@nestjs/common';
 import Subscriber from './subscriber.entity';
 import { CreateSubscriberDTO, UpdateSubscriberDTO } from './dto';
 import Member from 'src/member/member.entity';
 import { deepRemove } from 'src/common';
+import Membership from 'src/membership/membership.entity';
 
 @EntityRepository(Subscriber)
 export default class SubscriberRepo extends Repository<Subscriber> {
@@ -18,7 +20,9 @@ export default class SubscriberRepo extends Repository<Subscriber> {
   async get(id?: string, q?: string): Promise<Subscriber | Subscriber[]> {
     const queryBuilder = Subscriber.createQueryBuilder('subscriber');
     if (id) {
-      queryBuilder.where('id = :id', { id });
+      const subscriber: Subscriber = await Subscriber.findOne(id);
+      deepRemove(subscriber);
+      return subscriber;
     }
     if (q) {
       queryBuilder.orWhere(
@@ -40,11 +44,24 @@ export default class SubscriberRepo extends Repository<Subscriber> {
     dto: CreateSubscriberDTO,
     member: Member,
   ): Promise<Subscriber> {
-    const subscriber: Subscriber = Subscriber.create({
-      ...dto,
+    const membership: Membership = Membership.create({
+      duration: dto.membershipDuration,
+      fees: dto.membershipFees,
+      membershipType: dto.membershipType,
       createdBy: member,
     });
+
+    const subscriber: Subscriber = Subscriber.create({
+      ...dto,
+      membership,
+      createdBy: member,
+    });
+
+    // membership.subscriber = subscriber;
+
     await subscriber.save();
+    // await membership.save();
+
     deepRemove(subscriber);
     return subscriber;
   }

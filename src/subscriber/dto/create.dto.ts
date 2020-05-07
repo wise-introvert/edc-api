@@ -1,5 +1,12 @@
-import { IsNotEmpty, IsPhoneNumber, IsOptional } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsPhoneNumber,
+  IsOptional,
+  IsInt,
+  IsString,
+} from 'class-validator';
 import Center from 'src/center/center.entity';
+import { Duration } from 'src/membership/model';
 
 export default class CreateSubscriberDTO {
   @IsNotEmpty()
@@ -21,7 +28,7 @@ export default class CreateSubscriberDTO {
   dob: Date;
 
   @IsNotEmpty()
-  gender: number; // 0 = MALE, 1 = FEMALE
+  gender: string;
 
   @IsOptional()
   @IsPhoneNumber('in')
@@ -39,4 +46,16 @@ export default class CreateSubscriberDTO {
 
   @IsNotEmpty()
   center: Center;
+
+  @IsNotEmpty()
+  @IsInt()
+  membershipFees: number;
+
+  @IsNotEmpty()
+  @IsString()
+  membershipDuration: Duration;
+
+  @IsNotEmpty()
+  @IsString()
+  membershipType: string;
 }
