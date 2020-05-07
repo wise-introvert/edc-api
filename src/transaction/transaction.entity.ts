@@ -23,12 +23,6 @@ export default class Transaction extends BaseEntity {
   @Column()
   type: TransactionType;
 
-  @ManyToOne(() => Subscriber, { eager: true })
-  subscriber: Subscriber;
-
-  @ManyToOne(() => Resource, { eager: true })
-  resource: Resource;
-
   @Column({ type: 'timestamp', precision: 6 })
   dateOfTransaction: Date;
 
@@ -40,6 +34,12 @@ export default class Transaction extends BaseEntity {
 
   @CreateDateColumn()
   created: Date;
+
+  @ManyToOne(() => Subscriber, { eager: true })
+  subscriber: Subscriber;
+
+  @ManyToOne(() => Resource, { eager: true })
+  resource: Resource;
 
   @BeforeInsert()
   setup() {
