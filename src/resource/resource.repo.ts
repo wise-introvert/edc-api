@@ -23,18 +23,21 @@ export default class ResourceRepo extends Repository<Resource> {
         throw new NotFoundException('Requested resource does not exits');
       }
 
-      return deepRemove(resource);
+      deepRemove(resource);
+      return resource;
     } else {
       const queryBuilder = Resource.createQueryBuilder();
       if (q) {
         const resources: Resource[] = await queryBuilder
           .where('name LIKE :q', { q: `%${q}%` })
           .getMany();
-        return deepRemove(resources);
+        deepRemove(resources);
+        return resources;
       } else {
         const resources: Resource[] = await Resource.find();
         if (resources) {
-          return deepRemove(resources);
+          deepRemove(resources);
+          return resources;
         } else {
           return [];
         }
@@ -56,12 +59,13 @@ export default class ResourceRepo extends Repository<Resource> {
 
     const resource: Resource = Resource.create({
       ...dto,
+      center: member.center,
       createdBy: member,
     });
 
     await resource.save();
-
-    return deepRemove(resource);
+    deepRemove(resource);
+    return resource;
   }
 
   // update a resource

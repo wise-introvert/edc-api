@@ -53,6 +53,7 @@ export default class SubscriberRepo extends Repository<Subscriber> {
 
     const subscriber: Subscriber = Subscriber.create({
       ...dto,
+      center: member.center,
       membership,
       createdBy: member,
     });

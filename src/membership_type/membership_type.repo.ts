@@ -46,6 +46,7 @@ export default class MembershipTypeRepo extends Repository<MembershipType> {
   ): Promise<MembershipType> {
     const membershipType: MembershipType = MembershipType.create({
       ...dto,
+      center: member.center,
       createdBy: member,
     });
     await membershipType.save();

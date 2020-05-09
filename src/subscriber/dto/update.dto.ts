@@ -1,5 +1,6 @@
-import { IsOptional } from 'class-validator';
-import Center from 'src/center/center.entity';
+import { IsOptional, IsInt, IsString } from 'class-validator';
+import {Duration} from 'src/membership/model';
+import MembershipType from 'src/membership_type/membership_type.entity';
 
 export default class UpdateSubscriberDTO {
   @IsOptional()
@@ -12,8 +13,14 @@ export default class UpdateSubscriberDTO {
   lastName: string;
 
   @IsOptional()
-  membershipId: string;
+  @IsInt()
+  membershipFees: number;
 
   @IsOptional()
-  center: Center;
+  @IsString()
+  membershipDuration: Duration;
+
+  @IsOptional()
+  @IsString()
+  membershipType: MembershipType;
 }

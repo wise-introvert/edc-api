@@ -1,7 +1,7 @@
 import { TransactionType } from '../model';
 import Subscriber from '../../subscriber/subscriber.entity';
 import Resource from 'src/resource/resource.entity';
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsInt, IsString } from 'class-validator';
 
 export default class CreateTransactionDTO {
   @IsNotEmpty()
@@ -13,6 +13,11 @@ export default class CreateTransactionDTO {
   @IsNotEmpty()
   resource: Resource;
 
-  @IsNotEmpty()
+  @IsOptional()
+  @IsString()
   remarks?: string;
+
+  @IsOptional()
+  @IsInt()
+  penalty: number;
 }

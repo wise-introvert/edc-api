@@ -14,6 +14,7 @@ import { v4 as uuid } from 'uuid';
 import Member from 'src/member/member.entity';
 import { Duration } from './model';
 import Subscriber from '../subscriber/subscriber.entity';
+import MembershipType from 'src/membership_type/membership_type.entity';
 
 @Entity('memberships')
 export default class Membership extends BaseEntity {
@@ -32,14 +33,14 @@ export default class Membership extends BaseEntity {
   @UpdateDateColumn()
   updated: number;
 
-  @Column()
-  membershipType: string;
-
   @ManyToOne(() => Member, { eager: true })
   createdBy: Member;
 
   @ManyToOne(() => Member, { eager: true })
   updatedBy: Member;
+
+  @ManyToOne(() => MembershipType, { eager: true })
+  membershipType: MembershipType;
 
   @OneToOne(
     () => Subscriber,
