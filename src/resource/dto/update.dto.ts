@@ -1,6 +1,5 @@
 import { IsNotEmpty, IsString, IsInt, IsOptional } from 'class-validator';
 import { ResourceType } from '../model';
-import Center from 'src/center/center.entity';
 
 export default class UpdateResourceDTO {
   @IsOptional()
@@ -14,10 +13,6 @@ export default class UpdateResourceDTO {
   @IsOptional()
   @IsNotEmpty()
   type?: ResourceType;
-
-  @IsOptional()
-  @IsNotEmpty()
-  center?: Center;
 
   @IsOptional()
   @IsString()

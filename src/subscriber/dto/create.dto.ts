@@ -5,8 +5,8 @@ import {
   IsInt,
   IsString,
 } from 'class-validator';
-import Center from 'src/center/center.entity';
 import { Duration } from 'src/membership/model';
+import MembershipType from 'src/membership_type/membership_type.entity';
 
 export default class CreateSubscriberDTO {
   @IsNotEmpty()
@@ -45,9 +45,6 @@ export default class CreateSubscriberDTO {
   curriculum: string;
 
   @IsNotEmpty()
-  center: Center;
-
-  @IsNotEmpty()
   @IsInt()
   membershipFees: number;
 
@@ -57,5 +54,5 @@ export default class CreateSubscriberDTO {
 
   @IsNotEmpty()
   @IsString()
-  membershipType: string;
+  membershipType: MembershipType;
 }

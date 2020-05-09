@@ -12,5 +12,5 @@ export default class CreateMembershipDTO {
 
   @IsNotEmpty()
   @IsString()
-  membershipType: string;
+  membershipType: MembershipType;
 }
